@@ -83,7 +83,7 @@ class NotifierHook < Redmine::Hook::Listener
       end
       
       notified = (users + watchers).uniq
-      notified.select {|user| !user.xmpp_jid.nil? && user.xmpp_jid}
+      notified = notified.select {|user| !user.xmpp_jid.nil? && user.xmpp_jid && user.xmpp_jid!=""}
       
       jids = notified.collect(&:xmpp_jid).flatten.compact
       Rails.logger.info "Sending XMPP notification to: #{jids.join(', ')}"
